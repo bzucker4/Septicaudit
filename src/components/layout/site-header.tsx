@@ -6,12 +6,16 @@ import { Button } from "@/components/ui/button";
 import { TALLY_FORM_URL } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-const NAV: Array<{ label: string; to?: "/audit" | "/standards" | "/services" | "/resources"; href?: string }> = [
+const NAV: Array<{
+  label: string;
+  to?: "/audit" | "/standards" | "/services" | "/resources" | "/book";
+  href?: string;
+}> = [
   { to: "/audit", label: "Free audit" },
   { to: "/standards", label: "Standards" },
   { to: "/services", label: "Services" },
   { to: "/resources", label: "Ledger notes" },
-  { href: TALLY_FORM_URL, label: "Book a visit" },
+  { to: "/book", label: "Book inspection" },
 ];
 
 function NavItem({
@@ -41,14 +45,14 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/90 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-border/80 bg-bg/85 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:h-[4.25rem]">
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <Mark className="size-8" />
           <span className="font-display text-lg tracking-tight text-fg">SepticAudit</span>
         </Link>
 
-        <nav className="hidden items-center gap-5 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV.map((item) => (
             <NavItem
               key={item.label}
@@ -57,7 +61,7 @@ export function SiteHeader() {
             />
           ))}
           <Button asChild size="sm">
-            <Link to="/audit">Start the ledger</Link>
+            <a href={TALLY_FORM_URL}>Request a sample</a>
           </Button>
         </nav>
 
@@ -86,6 +90,13 @@ export function SiteHeader() {
               onClick={() => setOpen(false)}
             />
           ))}
+          <a
+            href={TALLY_FORM_URL}
+            className="flex h-11 items-center text-sm font-medium text-primary"
+            onClick={() => setOpen(false)}
+          >
+            Request a sample / Book inspection
+          </a>
         </nav>
       </div>
     </header>

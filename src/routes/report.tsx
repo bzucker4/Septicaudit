@@ -91,7 +91,7 @@ function ReportPage() {
               Print
             </Button>
             <Button asChild>
-              <a href={TALLY_FORM_URL}>Book a visit</a>
+              <a href={TALLY_FORM_URL}>Request a sample / Book</a>
             </Button>
           </div>
         </div>
@@ -177,7 +177,7 @@ function ReportPage() {
             <Link to="/audit">Run the audit again</Link>
           </Button>
           <Button asChild>
-            <a href={TALLY_FORM_URL}>Schedule lids-off inspection</a>
+            <a href={TALLY_FORM_URL}>Book lids-off inspection</a>
           </Button>
         </div>
       </article>

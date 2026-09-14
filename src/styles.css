@@ -5,26 +5,26 @@
   --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --color-bg: #f2eee4;
-  --color-bg-2: #e8e2d4;
-  --color-surface: #faf7f0;
-  --color-surface-2: #efe9dc;
-  --color-ink: #1b2420;
-  --color-fg: #1b2420;
-  --color-muted: #5c675f;
-  --color-subtle: #7a847c;
-  --color-primary: #2c5a4e;
-  --color-primary-fg: #f4f1ea;
-  --color-primary-hover: #244c42;
-  --color-ring: #2c5a4e;
-  --color-border: #d4cfc2;
-  --color-border-strong: #b7b1a3;
-  --color-danger: #8f3a32;
-  --color-danger-bg: #f3e4e1;
-  --color-warn: #8a5a2a;
-  --color-warn-bg: #f3e8d6;
-  --color-ok: #2c5a4e;
-  --color-ok-bg: #dce8e3;
+  --color-bg: #eef2f1;
+  --color-bg-2: #e2e8e6;
+  --color-surface: #f7faf9;
+  --color-surface-2: #ebf0ee;
+  --color-ink: #0f172a;
+  --color-fg: #0f172a;
+  --color-muted: #475569;
+  --color-subtle: #64748b;
+  --color-primary: #0f766e;
+  --color-primary-fg: #f0fdfa;
+  --color-primary-hover: #0d9488;
+  --color-ring: #0f766e;
+  --color-border: #cbd5d1;
+  --color-border-strong: #94a3b8;
+  --color-danger: #b91c1c;
+  --color-danger-bg: #fef2f2;
+  --color-warn: #b45309;
+  --color-warn-bg: #fffbeb;
+  --color-ok: #0f766e;
+  --color-ok-bg: #ccfbf1;
 
   --radius-xs: 4px;
   --radius-sm: 8px;
@@ -65,6 +65,10 @@
 
   p {
     text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 22%, transparent);
   }
 }
 

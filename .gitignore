@@ -1,4 +1,12 @@
 node_modules
 .DS_Store
 dist
+.output
 .vercel
+.nitro
+.vinxi
+.tanstack
+*.local
+.env
+.env.*
+!.env.example

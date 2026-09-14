@@ -14,8 +14,8 @@ function ServicesPage() {
           Inspections, not guesses.
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-          We write condition, not cheerleading. Every visit opens what can be
-          opened, walks the field, and leaves a letter you can file.
+          We write condition, not cheerleading — across Western New York. Every visit
+          opens what can be opened, walks the field, and leaves a letter you can file.
         </p>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -52,7 +52,7 @@ function ServicesPage() {
             </p>
             <div className="mt-6">
               <Button asChild>
-                <a href={TALLY_FORM_URL}>Request a visit</a>
+                <a href={TALLY_FORM_URL}>Request a sample / Book inspection</a>
               </Button>
             </div>
           </div>

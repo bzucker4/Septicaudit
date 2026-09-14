@@ -1,5 +1,7 @@
 export const TALLY_FORM_URL = "https://tally.so/r/dWyO7y";
 
+export const CONTACT_EMAIL = "brian@septicaudit.com";
+
 export const SERVICES = [
   {
     id: "transfer",
@@ -113,4 +115,4 @@ export const FAQS = [
 ];
 
 export const COVERAGE =
-  "Property owners, buyers, and operators across the Northeast. Field work is scheduled by county; the online ledger is available anywhere.";
+  "Property owners, buyers, and operators across Western New York. Field work is scheduled by county; the online ledger is available anywhere.";
