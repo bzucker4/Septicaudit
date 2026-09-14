@@ -3,15 +3,39 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Mark } from "@/components/brand/mark";
 import { Button } from "@/components/ui/button";
+import { TALLY_FORM_URL } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-const NAV = [
+const NAV: Array<{ label: string; to?: "/audit" | "/standards" | "/services" | "/resources"; href?: string }> = [
   { to: "/audit", label: "Free audit" },
   { to: "/standards", label: "Standards" },
   { to: "/services", label: "Services" },
   { to: "/resources", label: "Ledger notes" },
-  { to: "/book", label: "Book a visit" },
+  { href: TALLY_FORM_URL, label: "Book a visit" },
 ];
+
+function NavItem({
+  item,
+  className,
+  onClick,
+}: {
+  item: (typeof NAV)[number];
+  className: string;
+  onClick?: () => void;
+}) {
+  if (item.href) {
+    return (
+      <a href={item.href} className={className} onClick={onClick}>
+        {item.label}
+      </a>
+    );
+  }
+  return (
+    <Link to={item.to ?? "/"} className={className} onClick={onClick}>
+      {item.label}
+    </Link>
+  );
+}
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -26,13 +50,11 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-5 lg:flex">
           {NAV.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
+            <NavItem
+              key={item.label}
+              item={item}
               className="text-sm text-muted transition-colors hover:text-fg"
-            >
-              {item.label}
-            </Link>
+            />
           ))}
           <Button asChild size="sm">
             <Link to="/audit">Start the ledger</Link>
@@ -57,14 +79,12 @@ export function SiteHeader() {
       >
         <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
           {NAV.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
+            <NavItem
+              key={item.label}
+              item={item}
               className="flex h-11 items-center text-sm text-fg"
               onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
+            />
           ))}
         </nav>
       </div>

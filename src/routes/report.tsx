@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { GRADE_COPY, scoreAudit } from "@/lib/audit/engine";
 import { loadAudit } from "@/lib/audit/store";
 import type { AuditResult, Severity } from "@/lib/audit/types";
+import { TALLY_FORM_URL } from "@/lib/content";
 
 export const Route = createFileRoute("/report")({ component: ReportPage });
 
@@ -90,7 +91,7 @@ function ReportPage() {
               Print
             </Button>
             <Button asChild>
-              <Link to="/book">Book a visit</Link>
+              <a href={TALLY_FORM_URL}>Book a visit</a>
             </Button>
           </div>
         </div>
@@ -176,7 +177,7 @@ function ReportPage() {
             <Link to="/audit">Run the audit again</Link>
           </Button>
           <Button asChild>
-            <Link to="/book">Schedule lids-off inspection</Link>
+            <a href={TALLY_FORM_URL}>Schedule lids-off inspection</a>
           </Button>
         </div>
       </article>

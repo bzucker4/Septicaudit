@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Mark } from "@/components/brand/mark";
+import { TALLY_FORM_URL } from "@/lib/content";
 
 export function SiteFooter() {
   return (
@@ -35,9 +36,9 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/book" className="text-muted hover:text-fg">
+              <a href={TALLY_FORM_URL} className="text-muted hover:text-fg">
                 Book a field visit
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

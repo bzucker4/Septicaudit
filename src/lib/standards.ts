@@ -189,7 +189,7 @@ export const SETBACKS: Setback[] = [
     nyField: 10,
     nyPit: 10,
     source: "table2",
-    why: "Table 2: 10 ft for tank, field, pit, and mound. Measure the replacement area too — a reserve that crosses the line is not a reserve.",
+    why: "Table 2: 10 ft for tank, field, pit, and mound. Measure the replacement area too. A reserve that crosses the line is not a reserve.",
   },
   {
     id: "stream",
@@ -215,7 +215,7 @@ export const SETBACKS: Setback[] = [
     nyField: 10,
     nyPit: 10,
     source: "practice",
-    why: "Not a Table 2 line — a construction reality. Loads crush pipe and compact laterals. Parking on a field is a design failure.",
+    why: "Not a Table 2 line: a construction reality. Loads crush pipe and compact laterals. Parking on a field is a design failure.",
   },
   {
     id: "pool",
@@ -331,7 +331,7 @@ export const GEOMETRY = [
   },
   {
     title: "Trench geometry",
-    body: "24 in maximum width — extras are still sized as 24 in. Gravity laterals 60 ft max; pressure or dosing 100 ft. Dose if total length ≥ 500 ft.",
+    body: "24 in maximum width. Extras are still sized as 24 in. Gravity laterals 60 ft max; pressure or dosing 100 ft. Dose if total length ≥ 500 ft.",
   },
   {
     title: "Between trenches",
@@ -376,7 +376,7 @@ export const SYSTEMS: SystemKind[] = [
     title: "Raised system (fill)",
     section: "75-A.9",
     summary:
-      "When original soil is only 1–2 ft of usable material. Seasonal high water at least 1 ft below original grade. Slope ≤ 15%. Perc the fill at the borrow pit and again after placement — slower rate governs.",
+      "When original soil is only 1–2 ft of usable material. Seasonal high water at least 1 ft below original grade. Slope ≤ 15%. Perc the fill at the borrow pit and again after placement. The slower rate governs.",
   },
   {
     id: "mound",
@@ -428,7 +428,7 @@ export function siteFit(site: SiteInput): SystemFit[] {
   const moundPerc = perc.kind === "trench" || perc.kind === "mound";
 
   const trenchReasons: string[] = [];
-  if (!trenchPerc) trenchReasons.push("Perc slower than 60 min/in — Table 4A will not size a trench.");
+  if (!trenchPerc) trenchReasons.push("Perc slower than 60 min/in. Table 4A will not size a trench.");
   if (slopePct > 15) trenchReasons.push(`Slope ${slopePct}% is over the 15% conventional / raised cap.`);
   if (!trenchWaterOk) {
     trenchReasons.push(
@@ -440,7 +440,7 @@ export function siteFit(site: SiteInput): SystemFit[] {
   }
 
   const pitReasons: string[] = [];
-  if (!trenchPerc) pitReasons.push("Perc slower than 60 min/in — a pit uses the same application table.");
+  if (!trenchPerc) pitReasons.push("Perc slower than 60 min/in. A pit uses the same application table.");
   if (shwtFt < 8) pitReasons.push("A pit needs several feet of unsaturated sidewall. Water at this depth is not enough.");
   if (rockFt < 10) pitReasons.push("Bedrock this shallow will not take a legal pit wall.");
 
@@ -451,11 +451,11 @@ export function siteFit(site: SiteInput): SystemFit[] {
   if (shwtFt < 1) raisedReasons.push("Seasonal high water must sit at least 1 ft below original grade.");
   if (rockFt < 1) raisedReasons.push("Need at least 1 ft of original soil above rock or an impermeable layer.");
   if (trenchPerc && !shallowSite) {
-    raisedReasons.push("Conventional trenches already fit — a raised bed is the shallow-soil path, not a preference.");
+    raisedReasons.push("Conventional trenches already fit. A raised bed is the shallow-soil path, not a preference.");
   }
 
   const moundReasons: string[] = [];
-  if (!moundPerc) moundReasons.push("Native perc slower than 120 min/in — 75-A will not mound this soil.");
+  if (!moundPerc) moundReasons.push("Native perc slower than 120 min/in. 75-A will not mound this soil.");
   if (slopePct > 12) moundReasons.push(`Slope ${slopePct}% exceeds the 12% mound cap.`);
   if (shwtFt < 1) moundReasons.push("Seasonal high water must be at least 1 ft below original grade.");
   if (rockFt < 2) moundReasons.push("Bedrock must be at least 2 ft below original grade.");
@@ -522,7 +522,7 @@ export function siteFit(site: SiteInput): SystemFit[] {
       section: "75-A.6",
       status: "alt",
       reasons: [
-        "Pretreatment, not a substitute for soil. NSF 40 (245 if nitrogen). A 33% trench cut is conditional — not automatic.",
+        "Pretreatment, not a substitute for soil. NSF 40 (245 if nitrogen). A 33% trench cut is conditional, not automatic.",
       ],
     },
   ];
@@ -544,7 +544,7 @@ export const CERTS = [
   {
     id: "nsf40",
     mark: "NSF/ANSI 40",
-    title: "Residential treatment — Class I",
+    title: "Residential treatment, Class I",
     body: "Aerobic and similar units, 400–1,500 gpd. Class I: 30-day average CBOD₅ ≤ 25 mg/L and TSS ≤ 30 mg/L. Many counties require the label for ATUs.",
   },
   {

@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "SepticAudit — a scored septic health ledger and inspection briefing for homeowners, buyers, and operators.",
+          "SepticAudit is a scored septic health ledger and inspection briefing for homeowners, buyers, and operators.",
       },
       { name: "theme-color", content: "#2C5A4E" },
     ],

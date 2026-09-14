@@ -180,7 +180,7 @@ export function scoreAudit(answers: Answers): Omit<AuditResult, "id" | "createdA
       severity: "fail",
       title: "Overdue for a pump-out",
       detail:
-        "At this interval sludge can reach the outlet baffle and seed the field with solids. Pump, then inspect — in that order if the tank is full.",
+        "At this interval sludge can reach the outlet baffle and seed the field with solids. Pump, then inspect, in that order if the tank is full.",
     });
     actions.push("Pump the tank. Ask the pumper to measure scum and sludge and note baffle condition.");
   } else if (pump === "8+" || pump === "never") {
@@ -245,7 +245,7 @@ export function scoreAudit(answers: Answers): Omit<AuditResult, "id" | "createdA
       severity: "fail",
       title: "History of backup",
       detail:
-        "A backup is a system speaking in complete sentences. Limit water use and get a technician on site — this is not a wait-and-see finding.",
+        "A backup is a system speaking in complete sentences. Limit water use and get a technician on site. This is not a wait-and-see finding.",
     });
     actions.push("Treat backups as urgent. Keep people off the field and book a same-week field visit.");
     certifiedInspect = true;
@@ -290,7 +290,7 @@ export function scoreAudit(answers: Answers): Omit<AuditResult, "id" | "createdA
       severity: "watch",
       title: "Slow or gurgling drains",
       detail:
-        "Could be a house plumbing clog — or a tank and field that cannot take the flow. Do not keep pouring chemical openers into it.",
+        "Could be a house plumbing clog, or a tank and field that cannot take the flow. Do not keep pouring chemical openers into it.",
     });
   }
   if (hasNone) {

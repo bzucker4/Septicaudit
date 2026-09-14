@@ -1,3 +1,5 @@
+export const TALLY_FORM_URL = "https://tally.so/r/dWyO7y";
+
 export const SERVICES = [
   {
     id: "transfer",
@@ -19,7 +21,7 @@ export const SERVICES = [
     title: "Maintenance audit",
     kicker: "Homeowners",
     summary:
-      "The annual (or overdue) health check. We tell you whether to pump, wait, or stop using the field — without selling you a replacement you do not need.",
+      "The annual (or overdue) health check. We tell you whether to pump, wait, or stop using the field, without selling you a replacement you do not need.",
     includes: [
       "Tank condition and pumping interval",
       "Alarm and pump check when present",
@@ -34,7 +36,7 @@ export const SERVICES = [
     title: "Failure diagnostic",
     kicker: "Odors, wet ground, backups",
     summary:
-      "When the yard is soft or the basement has spoken. Dye, camera, and hydraulic checks after the tank is opened — not before.",
+      "When the yard is soft or the basement has spoken. Dye, camera, and hydraulic checks after the tank is opened, not before.",
     includes: [
       "Symptom interview and water-use freeze",
       "Open-tank evaluation",
@@ -49,7 +51,7 @@ export const SERVICES = [
     title: "Compliance letter",
     kicker: "Towns, loans, refinances",
     summary:
-      "A tight letter that matches what the county or the underwriter actually asked for — not a marketing PDF with a logo on it.",
+      "A tight letter that matches what the county or the underwriter actually asked for, not a marketing PDF with a logo on it.",
     includes: [
       "Scope matched to the request",
       "Photos of lids and field",
@@ -70,7 +72,7 @@ export const STEPS = [
   {
     n: "02",
     title: "Read the score",
-    body: "A 0–100 health score, graded findings, and the next action — pump, inspect, or stand down.",
+    body: "A 0–100 health score, graded findings, and the next action: pump, inspect, or stand down.",
   },
   {
     n: "03",
@@ -86,7 +88,7 @@ export const FAQS = [
   },
   {
     q: "How often should a tank be pumped?",
-    a: "For a typical occupied house, every 3 years is a defensible default. High occupancy, garbage disposals, and older tanks pull that in. Holding tanks are a different schedule entirely — they are pumped, not treated.",
+    a: "For a typical occupied house, every 3 years is a defensible default. High occupancy, garbage disposals, and older tanks pull that in. Holding tanks are a different schedule entirely: they are pumped, not treated.",
   },
   {
     q: "We are buying a house with a septic system. What should we do?",
@@ -103,6 +105,10 @@ export const FAQS = [
   {
     q: "Do you pump tanks too?",
     a: "We coordinate pumping when the audit says the tank is due, and we inspect. Pumping without inspection is how solids reach a field. We would rather do both in the right order.",
+  },
+  {
+    q: "Where do tank and field sizes come from?",
+    a: "From the county, standing on a state code, standing on EPA guidance. A common pattern is 110–150 gallons per day per bedroom, a 1,000-gallon minimum tank, and a field sized from soil application rate. Open Design standards to run the tables. They are not a permit.",
   },
 ];
 

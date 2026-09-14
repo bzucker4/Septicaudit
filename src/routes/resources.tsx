@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
-import { FAQS } from "@/lib/content";
+import { FAQS, TALLY_FORM_URL } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/resources")({ component: ResourcesPage });
@@ -22,7 +22,7 @@ const NOTES = [
   },
   {
     title: "Design standards are a stack, not a pamphlet",
-    body: "EPA publishes the OWTS manual. States set gallons and setbacks. The county stamps the plan — and may be stricter. Table 1 flow, Table 3 tanks, Table 2 setbacks, Table 4A perc, and the 75-A.8 / .9 siting tests live in Design standards. They are a briefing for the permit conversation, not the permit.",
+    body: "EPA publishes the OWTS manual. States set gallons and setbacks. The county stamps the plan, and may be stricter. Table 1 flow, Table 3 tanks, Table 2 setbacks, Table 4A perc, and the 75-A.8 / .9 siting tests live in Design standards. They are a briefing for the permit conversation, not the permit.",
   },
 ];
 
@@ -91,7 +91,7 @@ function ResourcesPage() {
               <Link to="/standards">Design standards</Link>
             </Button>
             <Button asChild variant="outline">
-              <Link to="/book">Book a visit</Link>
+              <a href={TALLY_FORM_URL}>Book a visit</a>
             </Button>
           </div>
         </div>

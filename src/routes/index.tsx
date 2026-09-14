@@ -3,7 +3,7 @@ import { ArrowRight, ClipboardCheck, Droplets, FileSearch, Shield } from "lucide
 import { SystemSchematic } from "@/components/audit/system-schematic";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
-import { SERVICES, STEPS } from "@/lib/content";
+import { SERVICES, STEPS, TALLY_FORM_URL } from "@/lib/content";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -18,8 +18,8 @@ function Home() {
           Know the ground before it fails.
         </h1>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-          SepticAudit turns a buried tank and field into a scored briefing —
-          occupancy, pumping, symptoms, site — so you buy, sell, or pump with
+          SepticAudit turns a buried tank and field into a scored briefing:
+          occupancy, pumping, symptoms, site. Buy, sell, or pump with
           the lids in mind, not a guess.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -30,7 +30,7 @@ function Home() {
             </Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
-            <Link to="/book">Book a field inspection</Link>
+            <a href={TALLY_FORM_URL}>Book a field inspection</a>
           </Button>
         </div>
       </section>
@@ -123,7 +123,7 @@ function Home() {
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
             Design flow, Table 3 tanks, Table 2 setbacks, perc-to-trench, and
-            which 75-A system the lot can actually take — trench, raised,
+            which 75-A system the lot can actually take: trench, raised,
             mound, or a pretreatment path.
           </p>
           <div className="mt-6">
@@ -170,7 +170,7 @@ function Home() {
           <div className="flex flex-col justify-center p-6 sm:p-10">
             <ClipboardCheck className="size-6 text-primary" />
             <h2 className="mt-4 font-display text-3xl tracking-tight">
-              A report you can hand to a buyer — or keep in the kitchen drawer.
+              A report you can hand to a buyer, or keep in the kitchen drawer.
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted">
               The online ledger writes a scored report from your answers. A

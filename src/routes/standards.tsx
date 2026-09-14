@@ -5,6 +5,7 @@ import { SoilProfile } from "@/components/standards/soil-profile";
 import { TankSection } from "@/components/standards/tank-section";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
+import { TALLY_FORM_URL } from "@/lib/content";
 import {
   CERTS,
   FLOW_RULES,
@@ -83,7 +84,7 @@ function StandardsPage() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
         <p className="text-xs uppercase tracking-[0.18em] text-subtle">Design standards</p>
         <h1 className="mt-2 max-w-3xl font-display text-4xl tracking-tight sm:text-5xl">
-          The numbers under a permit — not a guess from a catalog.
+          The numbers under a permit, not a guess from a catalog.
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
           EPA writes manuals. New York writes Appendix 75-A. The county stamps
@@ -185,7 +186,7 @@ function StandardsPage() {
             <Link to="/audit">Run the health audit</Link>
           </Button>
           <Button asChild variant="secondary">
-            <Link to="/book">Ask for a site check</Link>
+            <a href={TALLY_FORM_URL}>Ask for a site check</a>
           </Button>
         </div>
       </div>
@@ -327,7 +328,7 @@ function SizePanel({
           <p className="mt-5 text-sm leading-relaxed text-muted">
             NY uses the bedroom table, not two-times-flow, and floors at 1,000
             gallons for 1–3 bedrooms. Two compartments, an outlet baffle, and a
-            listed effluent filter are construction notes — not extras.
+            listed effluent filter are construction notes, not extras.
           </p>
         </div>
 
@@ -472,7 +473,7 @@ function SetbackPanel({
       <div className="overflow-x-auto rounded-lg border border-border bg-surface">
         <table className="w-full min-w-[40rem] text-sm">
           <caption className="px-4 py-3 text-left text-xs uppercase tracking-[0.14em] text-subtle">
-            Table 2 — separation distances (feet)
+            Table 2: separation distances (feet)
           </caption>
           <thead className="bg-bg-2 text-left text-xs uppercase tracking-[0.12em] text-subtle">
             <tr>
@@ -592,7 +593,7 @@ function SoilPanel({
           <dl className="mt-6 divide-y divide-border">
             <Stat k="Design flow in play" v={`${flow.toLocaleString()} gpd`} />
             {percKind === "mound" ? (
-              <Stat k="Mound basal area (native soil)" v={basal ? `${basal.toLocaleString()} ft²` : "—"} />
+              <Stat k="Mound basal area (native soil)" v={basal ? `${basal.toLocaleString()} ft²` : "n/a"} />
             ) : (
               <>
                 <Stat
@@ -601,15 +602,15 @@ function SoilPanel({
                 />
                 <Stat
                   k={`Trench length at ${width} ft wide`}
-                  v={length ? `${length.toLocaleString()} ft` : "—"}
+                  v={length ? `${length.toLocaleString()} ft` : "n/a"}
                 />
                 <Stat
                   k="With 100% replacement area"
-                  v={area && percKind === "trench" ? `${(area * 2).toLocaleString()} ft² reserved` : "—"}
+                  v={area && percKind === "trench" ? `${(area * 2).toLocaleString()} ft² reserved` : "n/a"}
                 />
                 <Stat
                   k="ETU 33% reduction (if allowed)"
-                  v={reduced ? `${reduced.toLocaleString()} ft of trench` : "—"}
+                  v={reduced ? `${reduced.toLocaleString()} ft of trench` : "n/a"}
                 />
               </>
             )}
@@ -656,7 +657,7 @@ function SystemsPanel({
       <div className="rounded-lg border border-border bg-surface p-5 sm:p-6 lg:col-span-2">
         <h2 className="font-display text-2xl">The lot</h2>
         <p className="mt-2 text-sm text-muted">
-          75-A.8 and .9 decide the system from soil, water, rock, and slope — not from a catalog page.
+          75-A.8 and .9 decide the system from soil, water, rock, and slope, not from a catalog page.
         </p>
         <div className="mt-6 space-y-6">
           <p className="text-sm">

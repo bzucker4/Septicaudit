@@ -1,7 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
-import { SERVICES } from "@/lib/content";
+import { SERVICES, TALLY_FORM_URL } from "@/lib/content";
 
 export const Route = createFileRoute("/services")({ component: ServicesPage });
 
@@ -52,7 +52,7 @@ function ServicesPage() {
             </p>
             <div className="mt-6">
               <Button asChild>
-                <Link to="/book">Request a visit</Link>
+                <a href={TALLY_FORM_URL}>Request a visit</a>
               </Button>
             </div>
           </div>
