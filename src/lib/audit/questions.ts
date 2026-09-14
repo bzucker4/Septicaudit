@@ -1,0 +1,136 @@
+import type { Question } from "./types";
+
+export const QUESTIONS: Question[] = [
+  {
+    id: "purpose",
+    title: "What brings you to the ledger?",
+    body: "The report tilts toward a sale, a worry, or ordinary upkeep. Pick the closest match.",
+    type: "single",
+    options: [
+      {
+        value: "buy-sell",
+        label: "Buying or selling the property",
+        hint: "Most lenders want a certified field inspection on file.",
+      },
+      {
+        value: "maintenance",
+        label: "Routine maintenance",
+        hint: "Pumping cadence and a quiet health check.",
+      },
+      {
+        value: "trouble",
+        label: "Something already feels off",
+        hint: "Odors, wet ground, slow drains, backups.",
+      },
+      {
+        value: "unknown",
+        label: "I inherited the system. I barely know it.",
+        hint: "We'll start from what you can see.",
+      },
+    ],
+  },
+  {
+    id: "occupancy",
+    title: "How many people live there most weeks?",
+    body: "Load on the tank tracks occupancy more closely than square footage.",
+    type: "single",
+    options: [
+      { value: "1-2", label: "One or two" },
+      { value: "3-4", label: "Three or four" },
+      { value: "5+", label: "Five or more" },
+      { value: "seasonal", label: "Seasonal or weekends only" },
+    ],
+  },
+  {
+    id: "age",
+    title: "About how old is the system?",
+    body: "A date on a permit, a seller disclosure, or a guess from the house vintage all help.",
+    type: "single",
+    options: [
+      { value: "under-10", label: "Under 10 years" },
+      { value: "10-25", label: "10 to 25 years" },
+      { value: "25-40", label: "25 to 40 years" },
+      { value: "40+", label: "More than 40 years" },
+      { value: "unknown", label: "No idea" },
+    ],
+  },
+  {
+    id: "type",
+    title: "What kind of system is in the ground?",
+    body: "If you have never seen a drawing, choose unknown. We will not invent a type.",
+    type: "single",
+    options: [
+      { value: "conventional", label: "Conventional tank and drainfield" },
+      { value: "mound", label: "Mound or raised bed" },
+      { value: "aerobic", label: "Aerobic treatment unit" },
+      { value: "holding", label: "Holding tank, pumped only" },
+      { value: "unknown", label: "Unknown" },
+    ],
+  },
+  {
+    id: "pump",
+    title: "When was the tank last pumped?",
+    body: "Sludge depth is the quiet killer. A pump receipt is the best proof.",
+    type: "single",
+    options: [
+      { value: "under-3", label: "Within the last 3 years" },
+      { value: "3-5", label: "3 to 5 years ago" },
+      { value: "5-8", label: "5 to 8 years ago" },
+      { value: "8+", label: "More than 8 years ago" },
+      { value: "never", label: "Never, as far as I know" },
+      { value: "unknown", label: "No record" },
+    ],
+  },
+  {
+    id: "inspect",
+    title: "When was it last opened by a professional?",
+    body: "Pumping is not the same as an inspection. Lids off, levels checked, laterals walked.",
+    type: "single",
+    options: [
+      { value: "under-2", label: "Within 2 years" },
+      { value: "2-5", label: "2 to 5 years ago" },
+      { value: "never", label: "Never, or not that I know of" },
+      { value: "unknown", label: "No record" },
+    ],
+  },
+  {
+    id: "symptoms",
+    title: "What are you seeing or smelling?",
+    body: "Select every sign that has shown up in the last year. None is a valid answer.",
+    type: "multi",
+    options: [
+      { value: "none", label: "Nothing unusual" },
+      { value: "slow", label: "Slow drains or gurgling" },
+      { value: "odor", label: "Sewage odor indoors or at the lids" },
+      { value: "wet", label: "Soft, wet, or pooling ground over the field" },
+      { value: "green", label: "A lush green strip that does not match the rest of the lawn" },
+      { value: "backup", label: "A backup into a tub, basement, or cleanout" },
+    ],
+  },
+  {
+    id: "habits",
+    title: "What goes down the drains besides ordinary use?",
+    body: "Garbage disposals, hot-tub dumps, and chemical cleaners all change the math.",
+    type: "multi",
+    options: [
+      { value: "typical", label: "Ordinary household use" },
+      { value: "disposal", label: "Garbage disposal most days" },
+      { value: "softener", label: "Water softener backwash to the tank" },
+      { value: "cleaners", label: "Chemical drain openers" },
+      { value: "parties", label: "Large gatherings or a rental with spikes" },
+    ],
+  },
+  {
+    id: "site",
+    title: "What sits near the system?",
+    body: "Wells, streams, and a high water table change both risk and what a field inspection must check.",
+    type: "multi",
+    options: [
+      { value: "none", label: "Nothing notable that I know of" },
+      { value: "well", label: "A drinking well on the same lot" },
+      { value: "water", label: "A stream, pond, or ditch nearby" },
+      { value: "high-water", label: "Known high water table or seasonal flooding" },
+      { value: "driveway", label: "Driveway, patio, or parked vehicles over the field" },
+    ],
+  },
+];
