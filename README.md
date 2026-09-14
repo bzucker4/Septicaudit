@@ -54,25 +54,35 @@ npm run build
 npm run preview   # optional local preview of the production build
 ```
 
-Production server entry (Node):
+Production client assets land in `dist/client`. The `@netlify/vite-plugin-tanstack-start` plugin prepares the SSR server for Netlify Functions.
+
+## Deploy on Netlify
+
+Uses the official [`@netlify/vite-plugin-tanstack-start`](https://www.npmjs.com/package/@netlify/vite-plugin-tanstack-start) plugin (TanStack Start ≥ 1.132) plus `netlify.toml`.
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run build` (`vite build`) |
+| Publish directory | `dist/client` |
+| Node | `22` (see `netlify.toml` / `.nvmrc`) |
+
+1. Push this repo to GitHub (or connect the folder in the Netlify UI / CLI).
+2. Create a new Netlify site from the repo (or link an existing site).
+3. Confirm build settings match `netlify.toml` (`npm run build`, publish `dist/client`, Node 22).
+4. Deploy. No env vars are required for the public ledger.
+
+Optional CLI (after `netlify login` / linking; requires netlify-cli ≥ 17.31):
 
 ```bash
-npm start
-# → node .output/server/index.mjs
+npx netlify deploy --build
+npx netlify deploy --build --prod
 ```
 
-## Deploy on Vercel
-
-1. Push this repo to GitHub (or import the folder).
-2. Create a new Vercel project from the repo.
-3. Vercel detects TanStack Start + Nitro automatically when `nitro()` is present in `vite.config.ts`.
-4. Build command: `npm run build` (default). Leave the output directory to framework detection.
-5. Deploy. No env vars are required for the public ledger.
-
-Optional CLI:
+Local production build check:
 
 ```bash
-npx vercel
+npm run build
+# static assets → dist/client/
 ```
 
 ## Note
