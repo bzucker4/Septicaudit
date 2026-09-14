@@ -116,6 +116,25 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="rounded-xl border border-border bg-surface p-6 sm:p-8">
+          <p className="text-xs uppercase tracking-[0.18em] text-subtle">Codes, not folklore</p>
+          <h2 className="mt-2 font-display text-3xl tracking-tight">
+            Explore septic design standards
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+            Design flow, Table 3 tanks, Table 2 setbacks, perc-to-trench, and
+            which 75-A system the lot can actually take — trench, raised,
+            mound, or a pretreatment path.
+          </p>
+          <div className="mt-6">
+            <Button asChild>
+              <Link to="/standards">Open the standards ledger</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.18em] text-subtle">Field work</p>

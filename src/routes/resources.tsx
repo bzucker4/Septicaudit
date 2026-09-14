@@ -20,6 +20,10 @@ const NOTES = [
     title: "What a buyer should demand",
     body: "Lids located and opened. Sludge measured. Field walked. Limitations written down (buried D-box, no access, snow cover). A seller who offers a pump receipt from last spring is offering maintenance, not condition.",
   },
+  {
+    title: "Design standards are a stack, not a pamphlet",
+    body: "EPA publishes the OWTS manual. States set gallons and setbacks. The county stamps the plan — and may be stricter. Table 1 flow, Table 3 tanks, Table 2 setbacks, Table 4A perc, and the 75-A.8 / .9 siting tests live in Design standards. They are a briefing for the permit conversation, not the permit.",
+  },
 ];
 
 function ResourcesPage() {
@@ -84,6 +88,9 @@ function ResourcesPage() {
               <Link to="/audit">Start the audit</Link>
             </Button>
             <Button asChild variant="secondary">
+              <Link to="/standards">Design standards</Link>
+            </Button>
+            <Button asChild variant="outline">
               <Link to="/book">Book a visit</Link>
             </Button>
           </div>

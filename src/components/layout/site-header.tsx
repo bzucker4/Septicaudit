@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { to: "/audit", label: "Free audit" },
+  { to: "/standards", label: "Standards" },
   { to: "/services", label: "Services" },
   { to: "/resources", label: "Ledger notes" },
   { to: "/book", label: "Book a visit" },
@@ -23,7 +24,7 @@ export function SiteHeader() {
           <span className="font-display text-lg tracking-tight text-fg">SepticAudit</span>
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-5 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -40,7 +41,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="inline-flex size-11 items-center justify-center rounded-sm md:hidden"
+          className="inline-flex size-11 items-center justify-center rounded-sm lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
         >
@@ -50,7 +51,7 @@ export function SiteHeader() {
 
       <div
         className={cn(
-          "border-t border-border bg-surface md:hidden",
+          "border-t border-border bg-surface lg:hidden",
           open ? "block" : "hidden",
         )}
       >

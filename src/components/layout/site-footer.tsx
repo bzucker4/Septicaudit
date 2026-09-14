@@ -25,6 +25,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/standards" className="text-muted hover:text-fg">
+                Design standards
+              </Link>
+            </li>
+            <li>
               <Link to="/report" className="text-muted hover:text-fg">
                 Latest report
               </Link>
