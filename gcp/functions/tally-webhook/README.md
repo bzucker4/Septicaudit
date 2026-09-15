@@ -1,11 +1,5 @@
-# tally-webhook (Cloud Functions Gen2)
+# DEPRECATED — use Netlify Functions
 
-HTTP TypeScript function for Tally form `dWyO7y`. See `docs/tally-webhook-gcp.md` for deploy, secrets, and curl fixtures.
+This Cloud Functions Gen2 package is **superseded** by `netlify/functions/tally-webhook/`.
 
-```bash
-npm install
-npm run build
-npm start
-```
-
-Entry point: `tallyWebhook`.
+See `docs/tally-webhook-netlify.md` and `gcp/README.md`.

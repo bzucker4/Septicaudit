@@ -70,6 +70,7 @@ Uses the official [`@netlify/vite-plugin-tanstack-start`](https://www.npmjs.com/
 2. Create a new Netlify site from the repo (or link an existing site).
 3. Confirm build settings match `netlify.toml` (`npm run build`, publish `dist/client`, Node 22).
 4. Deploy. No env vars are required for the public ledger.
+5. For the Tally webhook (`/.netlify/functions/tally-webhook`), set Netlify env vars documented in [`docs/tally-webhook-netlify.md`](docs/tally-webhook-netlify.md) (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `TALLY_SIGNING_SECRET`, `RESEND_API_KEY`, `REPORT_TO_EMAIL`).
 
 Optional CLI (after `netlify login` / linking; requires netlify-cli ≥ 17.31):
 
