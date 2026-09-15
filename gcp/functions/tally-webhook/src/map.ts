@@ -191,10 +191,9 @@ function parseCityStateZip(raw: string | null): {
 function mapCounty(raw: string | null): string | null {
   if (!raw) return null;
   const n = raw.toLowerCase().replace(/\s+county$/, "").trim();
+  // Only clear WNY county names (and explicit "other"); city labels like "Buffalo" stay null.
   if (WNY_COUNTIES.has(n)) return n;
-  // common mislabels
-  if (n.includes("buffalo") || n.includes("erie")) return "erie";
-  return "other";
+  return null;
 }
 
 function coerceEngineValue(
@@ -552,8 +551,28 @@ export function validateMapped(mapped: MappedAudit): { ok: true } | { ok: false;
   if (mapped.propertyAddressLine1.length > 500) {
     return { ok: false, status: 422, error: "address_too_long" };
   }
-  if (mapped.notes && mapped.notes.length > 20000) {
+
+  // Photos hard-required (empty array → 422).
+  if (!mapped.photoRefs.length) {
+    return { ok: false, status: 422, error: "photos_required" };
+  }
+
+  // Service-log path (live dWyO7y): tank / gallons / notes / acknowledgment.
+  if (mapped.tankSizeGallons === null || !(mapped.tankSizeGallons > 0)) {
+    return { ok: false, status: 422, error: "invalid_tank_size_gallons" };
+  }
+  if (mapped.gallonsPumped === null || mapped.gallonsPumped < 0) {
+    return { ok: false, status: 422, error: "invalid_gallons_pumped" };
+  }
+  if (!mapped.notes || !mapped.notes.trim()) {
+    return { ok: false, status: 422, error: "notes_required" };
+  }
+  if (mapped.notes.length > 20000) {
     return { ok: false, status: 422, error: "notes_too_long" };
   }
+  if (mapped.acknowledgment !== true) {
+    return { ok: false, status: 422, error: "acknowledgment_required" };
+  }
+
   return { ok: true };
 }

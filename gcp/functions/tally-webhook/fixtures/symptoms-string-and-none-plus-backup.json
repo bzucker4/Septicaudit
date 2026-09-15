@@ -40,7 +40,15 @@
         "key": "question_photos_d6fd7ef2-5f79-40d4-9f33-aefd768bad15",
         "label": "Attach Site Photos",
         "type": "FILE_UPLOAD",
-        "value": []
+        "value": [
+          {
+            "id": "file1",
+            "name": "site.jpg",
+            "url": "https://storage.googleapis.com/tally-response-assets-dev/example/site.jpg",
+            "mimeType": "image/jpeg",
+            "size": 100000
+          }
+        ]
       },
       {
         "key": "question_ack_90c5e9a3-16a3-41a1-ac6a-a6dd7e154df5",

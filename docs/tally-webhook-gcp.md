@@ -28,6 +28,8 @@ gcloud services enable \
 
 Do **not** put secrets in source or commit them.
 
+**`TALLY_SIGNING_SECRET` is fail-closed in production:** prod deploy **must** set it via Secret Manager (reject unsigned/bad signatures with 401). Leaving it unset is allowed **only for local** runs so fixtures can be posted without HMAC.
+
 ```bash
 # Values are prompted / piped — never echo into the repo.
 printf '%s' 'https://YOUR_PROJECT.supabase.co' | \
@@ -56,7 +58,7 @@ Grant the Cloud Functions / Cloud Run runtime service account access to each sec
 
 ## 3. Apply Supabase migration
 
-Run `supabase/migrations/20260915000000_audits.sql` against the SepticAudit Supabase project (CLI `supabase db push`, SQL editor, or CI). RLS is enabled with **no anon policies**; only the service-role key used by this function can insert/select.
+Run `supabase/migrations/20260915000000_audits.sql` (approved core DDL) against the SepticAudit Supabase project (CLI `supabase db push`, SQL editor, or CI). Also apply follow-up `20260915000100_audits_form_version_checks.sql` (`form_version` text + CHECKs `tank_size_gallons > 0` / `gallons_pumped >= 0`, nulls still allowed). RLS is enabled with **no anon policies**; only the service-role key used by this function can insert/select.
 
 ## 4. Deploy Gen2 HTTP function
 
@@ -99,11 +101,13 @@ gcloud functions describe tally-webhook --gen2 --region=us-east1 --format='value
 1. HMAC verify on **raw body** (`Tally-Signature` = base64 HMAC-SHA256) before JSON parse; **401** when secret is set and signature is bad.
 2. Idempotency on `tally_event_id` / `tally_response_id` / `request_idempotency_key`; duplicates → **200** without re-email.
 3. Missing event id → `request_idempotency_key = sha256(raw)`.
-4. Fast ack: validate → insert → **200**; email is fire-and-forget (Cloud Tasks stub logged for later).
-5. Score via vendored `scoreAudit` only when full ledger answers are present; **never** trust a wire score; null score/grade otherwise.
-6. Live UUID map for address / city-state-zip / tank size / gallons / notes / photos / acknowledgment; label heuristics + `EXTENDED_FIELD_UUIDS` for contact + ledger.
-7. Photos: URL/metadata in `photo_refs` only.
-8. `public_id` = `SA-YYYY-NNNN`.
+4. Fast ack: validate → insert → **200**; then email.
+5. **Email (v1):** still **fire-and-forget** after the 200. Cloud Tasks is a **stub only** (`enqueueEmailTaskStub` logs intent). If the Cloud Functions instance dies mid-send, there is **no durable retry** — email can be lost until Tasks (or equivalent) is wired. Unscored service-log emails are **intake alerts** (address / tank / gallons / notes / photo refs), **not** scored briefings.
+6. Score via vendored `scoreAudit` only when full ledger answers are present; **never** trust a wire score; null score/grade otherwise.
+7. Live UUID map for address / city-state-zip / tank size / gallons / notes / photos / acknowledgment; label heuristics + `EXTENDED_FIELD_UUIDS` for contact + ledger.
+8. Photos: URL/metadata in `photo_refs` only; **empty photos → 422**. Service-log path also requires `tank_size_gallons > 0`, `gallons_pumped >= 0` (present), non-empty notes, and `acknowledgment === true`.
+9. `public_id` = `SA-YYYY-NNNN`.
+10. County map: only clear WNY county names (and `other`); city labels like "Buffalo" stay `null` — do **not** coerce to `erie`.
 
 ## 7. Curl fixtures
 
@@ -121,7 +125,7 @@ curl -sS -X POST "$URL" \
   --data-binary @"gcp/functions/tally-webhook/fixtures/happy-service-log.json"
 ```
 
-Unsigned (only works if `TALLY_SIGNING_SECRET` is unset — not for prod):
+Unsigned (only works if `TALLY_SIGNING_SECRET` is unset — **local only**; prod must set the secret and fail closed):
 
 ```bash
 curl -sS -X POST "$URL" \
@@ -133,10 +137,12 @@ Expected:
 
 | Fixture | Expect |
 | --- | --- |
-| `happy-service-log.json` | 200, `scored: false`, null score/grade |
+| `happy-service-log.json` | 200, `scored: false`, null score/grade (intake alert email, not scored briefing) |
 | `happy-full-ledger.json` | 200, `scored: true`, recomputed score |
 | `critical-ledger.json` | 200, low score / critical-ish grade |
 | `missing-address.json` | 422 |
+| `acknowledgment-false.json` | 422 `acknowledgment_required` |
+| empty photos array | 422 `photos_required` |
 | `empty-body` (curl `-d ''`) | 400 |
 | replay same `eventId` | 200, `duplicate: true` |
 | bad `Tally-Signature` | 401 |
@@ -157,7 +163,7 @@ npm start   # functions-framework on :8080
 | --- | --- |
 | `SUPABASE_URL` | Supabase project URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-only insert path (bypasses RLS) |
-| `TALLY_SIGNING_SECRET` | Tally webhook signing secret |
+| `TALLY_SIGNING_SECRET` | Tally webhook signing secret (**required in prod** / fail-closed; unset only for local) |
 | `RESEND_API_KEY` | Resend API key for report email |
 | `REPORT_TO_EMAIL` | Inbox for intake notifications |
 
