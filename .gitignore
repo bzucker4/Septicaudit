@@ -11,3 +11,10 @@ dist
 .env.*
 !.env.example
 .netlify
+
+# GCP function local build artifacts
+gcp/functions/**/node_modules/
+gcp/functions/**/lib/
+gcp/functions/**/.env
+gcp/functions/**/.env.*
+!gcp/functions/**/.env.example

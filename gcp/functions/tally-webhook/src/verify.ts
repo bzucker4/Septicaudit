@@ -1,0 +1,37 @@
+import { createHmac, timingSafeEqual } from "node:crypto";
+
+/**
+ * Tally.so signs webhooks with base64(HMAC-SHA256(secret, rawBody)).
+ * Header: Tally-Signature (case-insensitive).
+ * Always verify against the exact raw body bytes — never re-serialized JSON.
+ */
+export function verifyTallySignature(
+  rawBody: Buffer | string,
+  signatureHeader: string | string[] | undefined,
+  signingSecret: string | undefined,
+): { ok: true } | { ok: false; reason: string } {
+  if (!signingSecret) {
+    // Secret unset: skip verification (local/dev). Production should always set it.
+    return { ok: true };
+  }
+
+  const received = Array.isArray(signatureHeader)
+    ? signatureHeader[0]
+    : signatureHeader;
+
+  if (!received) {
+    return { ok: false, reason: "missing_signature" };
+  }
+
+  const expected = createHmac("sha256", signingSecret)
+    .update(rawBody)
+    .digest("base64");
+
+  const a = Buffer.from(received);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length || !timingSafeEqual(a, b)) {
+    return { ok: false, reason: "signature_mismatch" };
+  }
+
+  return { ok: true };
+}

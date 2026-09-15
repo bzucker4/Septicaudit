@@ -1,0 +1,111 @@
+{
+  "eventId": "evt-symptoms-edge-001",
+  "eventType": "FORM_RESPONSE",
+  "createdAt": "2026-09-15T00:40:00.000Z",
+  "data": {
+    "responseId": "resp-symptoms-edge-001",
+    "formId": "dWyO7y",
+    "fields": [
+      {
+        "key": "question_addr_618aab43-3754-4d8d-8831-7e7c674445cd",
+        "label": "Property Address",
+        "type": "INPUT_TEXT",
+        "value": "9 Edge Case Ln"
+      },
+      {
+        "key": "question_csz_58ad7818-21d3-482d-ad85-ea64126b25fe",
+        "label": "City, State, ZIP",
+        "type": "INPUT_TEXT",
+        "value": "Lockport, NY 14094"
+      },
+      {
+        "key": "question_tank_19bb0248-ab9f-4fd5-987b-94de94963c36",
+        "label": "Tank Size",
+        "type": "INPUT_NUMBER",
+        "value": 1000
+      },
+      {
+        "key": "question_gal_776270f1-b4b1-4817-bd97-35d7abd211eb",
+        "label": "Gallons Pumped",
+        "type": "INPUT_NUMBER",
+        "value": 200
+      },
+      {
+        "key": "question_notes_b98cbafe-6134-4dc6-9083-533d8233d37c",
+        "label": "Observations / Notes",
+        "type": "TEXTAREA",
+        "value": "none+backup normalization"
+      },
+      {
+        "key": "question_photos_d6fd7ef2-5f79-40d4-9f33-aefd768bad15",
+        "label": "Attach Site Photos",
+        "type": "FILE_UPLOAD",
+        "value": []
+      },
+      {
+        "key": "question_ack_90c5e9a3-16a3-41a1-ac6a-a6dd7e154df5",
+        "label": "Acknowledgment",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_purpose",
+        "label": "purpose",
+        "type": "INPUT_TEXT",
+        "value": "maintenance"
+      },
+      {
+        "key": "question_occupancy",
+        "label": "occupancy",
+        "type": "INPUT_TEXT",
+        "value": "1-2"
+      },
+      {
+        "key": "question_age",
+        "label": "age",
+        "type": "INPUT_TEXT",
+        "value": "under-10"
+      },
+      {
+        "key": "question_type",
+        "label": "type",
+        "type": "INPUT_TEXT",
+        "value": "conventional"
+      },
+      {
+        "key": "question_pump",
+        "label": "pump",
+        "type": "INPUT_TEXT",
+        "value": "under-3"
+      },
+      {
+        "key": "question_inspect",
+        "label": "inspect",
+        "type": "INPUT_TEXT",
+        "value": "under-2"
+      },
+      {
+        "key": "question_symptoms",
+        "label": "What are you seeing or smelling?",
+        "type": "CHECKBOXES",
+        "value": ["none-id", "backup-id"],
+        "options": [
+          { "id": "none-id", "text": "Nothing unusual" },
+          { "id": "backup-id", "text": "A backup into a tub, basement, or cleanout" }
+        ]
+      },
+      {
+        "key": "question_habits",
+        "label": "habits",
+        "type": "INPUT_TEXT",
+        "value": "typical"
+      },
+      {
+        "key": "question_site",
+        "label": "site",
+        "type": "INPUT_TEXT",
+        "value": "none"
+      }
+    ]
+  }
+}
