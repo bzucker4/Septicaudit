@@ -35,7 +35,7 @@ async function readRawBody(req: Request): Promise<Buffer> {
   return Buffer.from(ab);
 }
 
-export default async (req: Request, _context: Context): Promise<Response> => {
+export default async (req: Request, context: Context): Promise<Response> => {
   try {
     if (req.method === "GET" || req.method === "HEAD") {
       return json(200, { ok: true, service: "septicaudit-tally-webhook" });
@@ -172,25 +172,27 @@ export default async (req: Request, _context: Context): Promise<Response> => {
       return json(500, { ok: false, error: "public_id_exhausted" });
     }
 
-    // Fast ack — email is async (fire-and-forget). Durable queue stub logged.
+    // Fast ack — keep isolate alive for email via waitUntil (prefer over Background Function for v1).
     enqueueEmailTaskStub(inserted.id, inserted.publicId);
-    void sendReportEmail({
-      publicId: inserted.publicId,
-      mapped,
-      scored,
-      formId,
-      responseId: ids.tallyResponseId,
-    })
-      .then((result) => markEmailResult(supabase, inserted!.id, result))
-      .catch((err) => {
-        console.error(
-          JSON.stringify({
-            msg: "email_async_failed",
-            public_id: inserted!.publicId,
-            error: err instanceof Error ? err.message : String(err),
-          }),
-        );
-      });
+    context.waitUntil(
+      sendReportEmail({
+        publicId: inserted.publicId,
+        mapped,
+        scored,
+        formId,
+        responseId: ids.tallyResponseId,
+      })
+        .then((result) => markEmailResult(supabase, inserted!.id, result))
+        .catch((err) => {
+          console.error(
+            JSON.stringify({
+              msg: "email_async_failed",
+              public_id: inserted!.publicId,
+              error: err instanceof Error ? err.message : String(err),
+            }),
+          );
+        }),
+    );
 
     return json(200, {
       ok: true,

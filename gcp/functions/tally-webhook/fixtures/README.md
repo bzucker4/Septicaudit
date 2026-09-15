@@ -1,6 +1,6 @@
 # Tally webhook fixtures
 
-Use with the curl examples in `docs/tally-webhook-gcp.md`.
+Historical fixtures for the deprecated GCP Gen2 package. For live curl examples, see `docs/tally-webhook-netlify.md` (and matching fixtures under `netlify/functions/tally-webhook/fixtures/`).
 
 | File | Intent |
 | --- | --- |
