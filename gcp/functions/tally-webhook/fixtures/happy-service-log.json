@@ -1,0 +1,65 @@
+{
+  "eventId": "evt-happy-service-001",
+  "eventType": "FORM_RESPONSE",
+  "createdAt": "2026-09-15T00:00:00.000Z",
+  "data": {
+    "responseId": "resp-happy-001",
+    "submissionId": "resp-happy-001",
+    "formId": "dWyO7y",
+    "formName": "SepticAudit Service & Inspection Report",
+    "createdAt": "2026-09-15T00:00:00.000Z",
+    "fields": [
+      {
+        "key": "question_addr_618aab43-3754-4d8d-8831-7e7c674445cd",
+        "label": "Property Address",
+        "type": "INPUT_TEXT",
+        "value": "12 Maple St"
+      },
+      {
+        "key": "question_csz_58ad7818-21d3-482d-ad85-ea64126b25fe",
+        "label": "City, State, ZIP",
+        "type": "INPUT_TEXT",
+        "value": "Buffalo, NY 14201"
+      },
+      {
+        "key": "question_tank_19bb0248-ab9f-4fd5-987b-94de94963c36",
+        "label": "Tank Size",
+        "type": "INPUT_NUMBER",
+        "value": 1000
+      },
+      {
+        "key": "question_gal_776270f1-b4b1-4817-bd97-35d7abd211eb",
+        "label": "Gallons Pumped",
+        "type": "INPUT_NUMBER",
+        "value": 850
+      },
+      {
+        "key": "question_notes_b98cbafe-6134-4dc6-9083-533d8233d37c",
+        "label": "Observations / Notes",
+        "type": "TEXTAREA",
+        "value": "Lids off. Scum normal. Outlet baffle intact."
+      },
+      {
+        "key": "question_photos_d6fd7ef2-5f79-40d4-9f33-aefd768bad15",
+        "label": "Attach Site Photos",
+        "type": "FILE_UPLOAD",
+        "value": [
+          {
+            "id": "file1",
+            "name": "tank-lid.jpg",
+            "url": "https://storage.googleapis.com/tally-response-assets-dev/example/tank-lid.jpg",
+            "mimeType": "image/jpeg",
+            "size": 120000
+          }
+        ]
+      },
+      {
+        "key": "question_ack_90c5e9a3-16a3-41a1-ac6a-a6dd7e154df5",
+        "label": "Acknowledgment",
+        "type": "CHECKBOXES",
+        "value": ["ack-opt-1"],
+        "options": [{ "id": "ack-opt-1", "text": "I acknowledge this is not a certified inspection letter" }]
+      }
+    ]
+  }
+}
