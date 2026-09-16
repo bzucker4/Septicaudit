@@ -65,7 +65,7 @@ Tally must call a **public HTTPS** URL and expects **2xx within ~10 seconds**. A
 4. Missing event id → `request_idempotency_key = sha256(raw)`.
 5. Fast ack: validate → insert → **200**; then email via `context.waitUntil(...)` (keeps the isolate alive after the response; prefer over Background Function for v1). Durable queue is a **stub only** (`enqueueEmailTaskStub` logs intent). If the function times out mid-send, there is **no durable retry** until a queue is wired. Unscored service-log emails are **intake alerts** (address / tank / gallons / notes / photo refs), **not** scored briefings.
 6. Score via vendored `scoreAudit` only when full ledger answers are present; **never** trust a wire score; null score/grade otherwise.
-7. Live UUID map for address / city-state-zip / tank size / gallons / notes / photos / acknowledgment; label heuristics + `EXTENDED_FIELD_UUIDS` for contact + ledger.
+7. Live webhook field keys are `question_*` (see `LIVE_FIELD_KEYS` / `EXTENDED_FIELD_KEYS` in `map.ts`, sourced from SA-2026-7012). Form-definition UUIDs are **not** on the wire. Matcher: exact `field.key` or checkbox option-row prefix (`parentKey_…`); label heuristics remain as fallback.
 8. Photos: URL/metadata in `photo_refs` only; **empty photos → 422**. Service-log path also requires `tank_size_gallons > 0`, `gallons_pumped >= 0` (present), non-empty notes, and `acknowledgment === true`.
 9. `public_id` = `SA-YYYY-NNNN`.
 10. County map: only clear WNY county names (and `other`); city labels like "Buffalo" stay `null` — do **not** coerce to `erie`.
