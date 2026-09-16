@@ -2,35 +2,35 @@ import type { Answers } from "./vendor/types";
 
 /**
  * Live Tally form dWyO7y UUID map (service log).
- * Extended form will add contact + ledger UUIDs — plug them into EXTENDED_FIELD_UUIDS.
+ * Service-log UUIDs refreshed post form-extension publish (2026-09-16).
  */
 export const LIVE_FIELD_UUIDS = {
-  address: "618aab43-3754-4d8d-8831-7e7c674445cd",
-  cityStateZip: "58ad7818-21d3-482d-ad85-ea64126b25fe",
-  tankSize: "19bb0248-ab9f-4fd5-987b-94de94963c36",
-  gallons: "776270f1-b4b1-4817-bd97-35d7abd211eb",
-  notes: "b98cbafe-6134-4dc6-9083-533d8233d37c",
-  photos: "d6fd7ef2-5f79-40d4-9f33-aefd768bad15",
-  acknowledgment: "90c5e9a3-16a3-41a1-ac6a-a6dd7e154df5",
+  address: "b40240aa-bf6b-4934-8f93-5bcd59f88ddf",
+  cityStateZip: "dcadba78-1c1b-4d1c-bcef-53e5d34d9f3e",
+  tankSize: "f717eecc-e2b0-4a1f-811a-95c2b13b2441",
+  gallons: "e2429293-025e-45f6-a1b9-fa173f7e88f1",
+  notes: "3d8125a6-1821-43b4-9bde-990f32d6125e",
+  photos: "e38869b4-5063-49f0-b816-f3ed32639bfc",
+  acknowledgment: "f8e40a99-9ded-4926-9743-8adfe68988ca",
 } as const;
 
-/** Placeholder UUIDs for the extended ledger form — set when fields are added in Tally. */
+/** Extended contact + health-ledger UUIDs from live Tally dWyO7y (post-extension). */
 export const EXTENDED_FIELD_UUIDS: Record<string, string | null> = {
-  contactName: null,
-  contactEmail: null,
-  contactPhone: null,
-  contactRole: null,
-  county: null,
-  purpose: null,
-  occupancy: null,
-  age: null,
-  type: null,
-  pump: null,
-  inspect: null,
-  symptoms: null,
-  habits: null,
-  site: null,
-  parcelId: null,
+  contactName: "41ba71e1-f5d7-4acc-bfde-dea5feef54bf",
+  contactEmail: "c8234da3-ded4-4e61-9b61-71ec087cfadc",
+  contactPhone: "2de16431-5207-4df5-9e80-44937af6cfb6",
+  contactRole: "d1b99ff4-dc8d-48d8-9fdb-e228b4d94953",
+  county: "b8e164e3-5a92-464e-8959-1e1d1a0b501a",
+  purpose: "7d8b00dd-e649-4e55-a9b1-aaca4789a90a",
+  occupancy: "0f8b022b-0098-4d9e-8ba1-82d72e82a95a",
+  age: "9a8edb7e-4527-4da5-b166-9a064c1f437d",
+  type: "d48640a7-0cf2-4932-a56a-3a776792dbd6",
+  pump: "27d17804-a7f0-43e5-99a0-dd956fca82db",
+  inspect: "406f7b78-08fd-428c-b368-3a9ca825fbdc",
+  symptoms: "d22b2614-1519-4be2-94a9-b11924eb81b8",
+  habits: "2da0fcd0-1abc-4e46-954e-bdc2291b1275",
+  site: "a6495bfc-ae4d-4837-8a0e-fd726e6b86ea",
+  parcelId: "28356155-4ff7-43f6-9758-c53245ae3475",
 };
 
 export type PhotoRef = {
