@@ -4,8 +4,8 @@ Use with the curl examples in `docs/tally-webhook-netlify.md`.
 
 | File | Intent |
 | --- | --- |
-| `happy-service-log.json` | Live dWyO7y fields only → insert, null score/grade |
-| `happy-full-ledger.json` | Contact + full ledger via label heuristics → scored |
+| `happy-service-log.json` | Live dWyO7y `question_*` keys only → insert, null score/grade |
+| `happy-full-ledger.json` | Contact + full ledger via live `question_*` keys → scored |
 | `critical-ledger.json` | Backup / never pumped / high water → low score |
 | `missing-address.json` | 422 `missing_property_address` |
 | `acknowledgment-false.json` | 422 `acknowledgment_required` |

@@ -1,37 +1,41 @@
 import type { Answers } from "./vendor/types";
 
 /**
- * Live Tally form dWyO7y UUID map (service log).
- * Service-log UUIDs refreshed post form-extension publish (2026-09-16).
+ * Live Tally webhook field keys (question_*) for form dWyO7y — service log.
+ * Sourced from real submission SA-2026-7012. These are wire field.key values,
+ * NOT form-definition UUIDs (UUIDs do not appear on the webhook payload).
  */
-export const LIVE_FIELD_UUIDS = {
-  address: "b40240aa-bf6b-4934-8f93-5bcd59f88ddf",
-  cityStateZip: "dcadba78-1c1b-4d1c-bcef-53e5d34d9f3e",
-  tankSize: "f717eecc-e2b0-4a1f-811a-95c2b13b2441",
-  gallons: "e2429293-025e-45f6-a1b9-fa173f7e88f1",
-  notes: "3d8125a6-1821-43b4-9bde-990f32d6125e",
-  photos: "e38869b4-5063-49f0-b816-f3ed32639bfc",
-  acknowledgment: "f8e40a99-9ded-4926-9743-8adfe68988ca",
+export const LIVE_FIELD_KEYS = {
+  address: "question_VMxorl",
+  cityStateZip: "question_PXP8o0",
+  tankSize: "question_EJa8pL",
+  gallons: "question_rdq2XL",
+  notes: "question_4oGPZo",
+  photos: "question_j7EGK9",
+  acknowledgment: "question_2JRO2b",
 } as const;
 
-/** Extended contact + health-ledger UUIDs from live Tally dWyO7y (post-extension). */
-export const EXTENDED_FIELD_UUIDS: Record<string, string | null> = {
-  contactName: "41ba71e1-f5d7-4acc-bfde-dea5feef54bf",
-  contactEmail: "c8234da3-ded4-4e61-9b61-71ec087cfadc",
-  contactPhone: "2de16431-5207-4df5-9e80-44937af6cfb6",
-  contactRole: "d1b99ff4-dc8d-48d8-9fdb-e228b4d94953",
-  county: "b8e164e3-5a92-464e-8959-1e1d1a0b501a",
-  purpose: "7d8b00dd-e649-4e55-a9b1-aaca4789a90a",
-  occupancy: "0f8b022b-0098-4d9e-8ba1-82d72e82a95a",
-  age: "9a8edb7e-4527-4da5-b166-9a064c1f437d",
-  type: "d48640a7-0cf2-4932-a56a-3a776792dbd6",
-  pump: "27d17804-a7f0-43e5-99a0-dd956fca82db",
-  inspect: "406f7b78-08fd-428c-b368-3a9ca825fbdc",
-  symptoms: "d22b2614-1519-4be2-94a9-b11924eb81b8",
-  habits: "2da0fcd0-1abc-4e46-954e-bdc2291b1275",
-  site: "a6495bfc-ae4d-4837-8a0e-fd726e6b86ea",
-  parcelId: "28356155-4ff7-43f6-9758-c53245ae3475",
-};
+/**
+ * Extended contact + health-ledger webhook field keys (question_*) from SA-2026-7012.
+ * Checkbox option rows may append _<uuid> to the parent key.
+ */
+export const EXTENDED_FIELD_KEYS = {
+  contactName: "question_vxXaQg",
+  contactEmail: "question_KBp4qg",
+  contactPhone: "question_LMDjQy",
+  contactRole: "question_pPeNl1",
+  county: "question_12WY1g",
+  purpose: "question_Md129l",
+  occupancy: "question_Jk1rNr",
+  age: "question_gNbVRP",
+  type: "question_yqXbW8",
+  pump: "question_XB57KP",
+  inspect: "question_8pNY0l",
+  symptoms: "question_0jVYp9",
+  habits: "question_zQEAak",
+  site: "question_5qXYyN",
+  parcelId: "question_d2bo5r",
+} as const;
 
 export type PhotoRef = {
   id?: string;
@@ -338,17 +342,28 @@ function photoRefsFromValue(value: unknown): PhotoRef[] {
   return out;
 }
 
-function fieldMatchesUuid(field: TallyField, uuid: string): boolean {
-  const u = uuid.toLowerCase();
-  return (
-    extractUuid(field.key) === u ||
-    (typeof field.key === "string" && field.key.toLowerCase().includes(u))
-  );
+/**
+ * Match live webhook field.key to a mapped question_* key.
+ * Primary: exact key, or checkbox option-row prefix (parent + "_" + suffix).
+ * Secondary: legacy form-definition UUID embedded in field.key (if mappedKey is a UUID).
+ */
+function fieldMatchesKey(field: TallyField, mappedKey: string): boolean {
+  if (!mappedKey || typeof field.key !== "string") return false;
+  const key = field.key;
+  if (key === mappedKey || key.startsWith(mappedKey + "_")) return true;
+  const u = extractUuid(mappedKey);
+  if (u) {
+    return extractUuid(key) === u || key.toLowerCase().includes(u);
+  }
+  return false;
 }
 
-function findByUuid(fields: TallyField[], uuid: string | null | undefined): TallyField | undefined {
-  if (!uuid) return undefined;
-  return fields.find((f) => fieldMatchesUuid(f, uuid));
+function findByFieldKey(
+  fields: TallyField[],
+  mappedKey: string | null | undefined,
+): TallyField | undefined {
+  if (!mappedKey) return undefined;
+  return fields.find((f) => fieldMatchesKey(f, mappedKey));
 }
 
 function findByLabel(
@@ -364,67 +379,67 @@ function findByLabel(
 
 /**
  * Map a Tally FORM_RESPONSE payload into typed audit columns + engine answers.
- * UUID map wins; label heuristics fill contact/ledger gaps for the extended form.
+ * Live question_* key map wins; label heuristics fill gaps for the extended form.
  */
 export function mapTallyPayload(payload: TallyWebhookPayload): MappedAudit {
   const fields = payload.data?.fields ?? [];
 
   const addressField =
-    findByUuid(fields, LIVE_FIELD_UUIDS.address) ??
+    findByFieldKey(fields, LIVE_FIELD_KEYS.address) ??
     findByLabel(fields, [
       (l) => l.includes("property address") || l === "address" || l.includes("street"),
     ]);
 
   const cszField =
-    findByUuid(fields, LIVE_FIELD_UUIDS.cityStateZip) ??
+    findByFieldKey(fields, LIVE_FIELD_KEYS.cityStateZip) ??
     findByLabel(fields, [
       (l) => l.includes("city") && (l.includes("state") || l.includes("zip")),
       (l) => l === "city, state, zip" || l === "city state zip",
     ]);
 
   const tankSizeField =
-    findByUuid(fields, LIVE_FIELD_UUIDS.tankSize) ??
+    findByFieldKey(fields, LIVE_FIELD_KEYS.tankSize) ??
     findByLabel(fields, [(l) => l.includes("tank size") || l.includes("tank capacity")]);
 
   const gallonsField =
-    findByUuid(fields, LIVE_FIELD_UUIDS.gallons) ??
+    findByFieldKey(fields, LIVE_FIELD_KEYS.gallons) ??
     findByLabel(fields, [(l) => l.includes("gallons pumped") || l === "gallons"]);
 
   const notesField =
-    findByUuid(fields, LIVE_FIELD_UUIDS.notes) ??
+    findByFieldKey(fields, LIVE_FIELD_KEYS.notes) ??
     findByLabel(fields, [
       (l) => l.includes("observation") || l.includes("notes") || l.includes("tank condition"),
     ]);
 
   const photosField =
-    findByUuid(fields, LIVE_FIELD_UUIDS.photos) ??
+    findByFieldKey(fields, LIVE_FIELD_KEYS.photos) ??
     findByLabel(fields, [(l) => l.includes("photo") || l.includes("file upload") || l.includes("attach")]);
 
   const ackField =
-    findByUuid(fields, LIVE_FIELD_UUIDS.acknowledgment) ??
+    findByFieldKey(fields, LIVE_FIELD_KEYS.acknowledgment) ??
     findByLabel(fields, [(l) => l.includes("acknowledg")]);
 
-  // Contact / extended — UUID placeholders first, then label heuristics
+  // Contact / extended — live question_* keys first, then label heuristics
   const nameField =
-    findByUuid(fields, EXTENDED_FIELD_UUIDS.contactName) ??
+    findByFieldKey(fields, EXTENDED_FIELD_KEYS.contactName) ??
     findByLabel(fields, [
       (l) => l === "name" || l.includes("full name") || l.includes("contact name") || l.includes("your name"),
     ]);
 
   const emailField =
-    findByUuid(fields, EXTENDED_FIELD_UUIDS.contactEmail) ??
+    findByFieldKey(fields, EXTENDED_FIELD_KEYS.contactEmail) ??
     findByLabel(fields, [(l) => l.includes("email")]);
 
   const phoneField =
-    findByUuid(fields, EXTENDED_FIELD_UUIDS.contactPhone) ??
+    findByFieldKey(fields, EXTENDED_FIELD_KEYS.contactPhone) ??
     findByLabel(fields, [(l) => l.includes("phone") || l.includes("mobile") || l.includes("cell")]);
 
   const roleField =
-    findByUuid(fields, EXTENDED_FIELD_UUIDS.contactRole) ??
+    findByFieldKey(fields, EXTENDED_FIELD_KEYS.contactRole) ??
     findByLabel(fields, [(l) => l.includes("role") || l.includes("i am a") || l.includes("your role")]);
 
   const countyField =
-    findByUuid(fields, EXTENDED_FIELD_UUIDS.county) ??
+    findByFieldKey(fields, EXTENDED_FIELD_KEYS.county) ??
     findByLabel(fields, [(l) => l.includes("county")]);
 
   const csz = parseCityStateZip(asText(cszField?.value));
@@ -443,8 +458,8 @@ export function mapTallyPayload(payload: TallyWebhookPayload): MappedAudit {
   ] as const;
 
   for (const key of ledgerKeys) {
-    const uuid = EXTENDED_FIELD_UUIDS[key];
-    let field = findByUuid(fields, uuid);
+    const mappedKey = EXTENDED_FIELD_KEYS[key];
+    let field = findByFieldKey(fields, mappedKey);
     if (!field) {
       field = findByLabel(fields, [(l) => labelLooksLikeLedger(key, l)]);
     }
