@@ -32,8 +32,12 @@ import {
   type Setback,
 } from "@/lib/standards";
 import { cn } from "@/lib/utils";
+import { pageSeo } from "@/lib/seo";
 
-export const Route = createFileRoute("/standards")({ component: StandardsPage });
+export const Route = createFileRoute("/standards")({
+  head: () => pageSeo("/standards"),
+  component: StandardsPage,
+});
 
 const TABS = [
   { id: "size", label: "Size the system" },

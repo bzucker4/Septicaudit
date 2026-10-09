@@ -4,8 +4,12 @@ import { SystemSchematic } from "@/components/audit/system-schematic";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
 import { SERVICES, STEPS, TALLY_FORM_URL } from "@/lib/content";
+import { pageSeo } from "@/lib/seo";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  head: () => pageSeo("/"),
+  component: Home,
+});
 
 function Home() {
   return (

@@ -2,8 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
 import { SERVICES, TALLY_FORM_URL } from "@/lib/content";
+import { pageSeo } from "@/lib/seo";
 
-export const Route = createFileRoute("/services")({ component: ServicesPage });
+export const Route = createFileRoute("/services")({
+  head: () => pageSeo("/services"),
+  component: ServicesPage,
+});
 
 function ServicesPage() {
   return (

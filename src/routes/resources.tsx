@@ -4,8 +4,12 @@ import { SiteShell } from "@/components/layout/site-shell";
 import { Button } from "@/components/ui/button";
 import { FAQS, TALLY_FORM_URL } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { pageSeo } from "@/lib/seo";
 
-export const Route = createFileRoute("/resources")({ component: ResourcesPage });
+export const Route = createFileRoute("/resources")({
+  head: () => pageSeo("/resources"),
+  component: ResourcesPage,
+});
 
 const NOTES = [
   {
