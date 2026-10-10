@@ -28,6 +28,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "plybhmnv1MFl4p7LXmEYn0yvLmxAyBCYRSSm_OlYiJg" },
       { title: `${APP_NAME} · Western NY septic ledger & inspections` },
       { name: "description", content: APP_DESCRIPTION },
       { name: "theme-color", content: "#0F766E" },
