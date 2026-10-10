@@ -8,8 +8,12 @@ import { QUESTIONS } from "@/lib/audit/questions";
 import { saveAudit } from "@/lib/audit/store";
 import type { Answers } from "@/lib/audit/types";
 import { cn } from "@/lib/utils";
+import { pageSeo } from "@/lib/seo";
 
-export const Route = createFileRoute("/audit")({ component: AuditPage });
+export const Route = createFileRoute("/audit")({
+  head: () => pageSeo("/audit"),
+  component: AuditPage,
+});
 
 function AuditPage() {
   const navigate = useNavigate();

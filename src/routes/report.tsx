@@ -10,8 +10,12 @@ import { GRADE_COPY, scoreAudit } from "@/lib/audit/engine";
 import { loadAudit } from "@/lib/audit/store";
 import type { AuditResult, Severity } from "@/lib/audit/types";
 import { TALLY_FORM_URL } from "@/lib/content";
+import { pageSeo } from "@/lib/seo";
 
-export const Route = createFileRoute("/report")({ component: ReportPage });
+export const Route = createFileRoute("/report")({
+  head: () => pageSeo("/report"),
+  component: ReportPage,
+});
 
 const SAMPLE_ANSWERS = {
   purpose: "buy-sell",
